@@ -43,4 +43,5 @@
     <string name="please_enter_auth_code">Please enter authorization code</string>
     <string name="play_using">Play using</string>
     <string name="new_version_available">Newer version of app is available. Click to download.</string>
+    <string name="pip_not_supported">PiP mode is not supported on your device</string>
 </resources>

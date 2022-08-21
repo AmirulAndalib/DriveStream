@@ -5,12 +5,14 @@ import android.app.PictureInPictureParams
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
@@ -177,7 +179,17 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
 
-        btnPip.setOnClickListener { enterPIPMode() }
+        btnPip.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                enterPIPMode()
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.pip_not_supported),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
         btnSpeed.setOnClickListener {
             MaterialAlertDialogBuilder(this).apply {
@@ -437,7 +449,9 @@ class PlayerActivity : AppCompatActivity() {
             Configuration.ORIENTATION_PORTRAIT -> {
                 btnRotate.apply {
                     orientation = Orientation.PORTRAIT
-                    tooltipText = getString(R.string.landscape)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        tooltipText = getString(R.string.landscape)
+                    }
                     icon = ContextCompat.getDrawable(
                         /* context */ this@PlayerActivity,
                         /* drawableId */ R.drawable.ic_landscape_24
@@ -447,7 +461,9 @@ class PlayerActivity : AppCompatActivity() {
             else -> {
                 btnRotate.apply {
                     orientation = Orientation.LANDSCAPE
-                    tooltipText = getString(R.string.portrait)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        tooltipText = getString(R.string.portrait)
+                    }
                     icon = ContextCompat.getDrawable(
                         /* context */ this@PlayerActivity,
                         /* drawableId */ R.drawable.ic_portrait_24

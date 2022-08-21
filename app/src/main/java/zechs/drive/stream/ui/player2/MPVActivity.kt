@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.media.AudioManager
 import android.media.AudioManager.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -426,7 +427,9 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver {
             Configuration.ORIENTATION_PORTRAIT -> {
                 controller.btnRotate.apply {
                     orientation = Orientation.PORTRAIT
-                    tooltipText = getString(R.string.landscape)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        tooltipText = getString(R.string.landscape)
+                    }
                     icon = ContextCompat.getDrawable(
                         /* context */ this@MPVActivity,
                         /* drawableId */ R.drawable.ic_landscape_24
@@ -436,7 +439,9 @@ class MPVActivity : AppCompatActivity(), MPVLib.EventObserver {
             else -> {
                 controller.btnRotate.apply {
                     orientation = Orientation.LANDSCAPE
-                    tooltipText = getString(R.string.portrait)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        tooltipText = getString(R.string.portrait)
+                    }
                     icon = ContextCompat.getDrawable(
                         /* context */ this@MPVActivity,
                         /* drawableId */ R.drawable.ic_portrait_24
